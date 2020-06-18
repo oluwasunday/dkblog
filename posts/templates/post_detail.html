@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title%}Post Detail | {{block.super}}{%endblock%}
+
+{% block style%}
+h1{
+	color:#f00;
+}
+{%endblock%}
+	
+{% block content %}
+<div class="col-md-6 col-md-offset-3">
+	{% if instance.image %}
+		<img src="{{instance.image.url}}" width="500" class="img-responsive" />
+	{% else %}
+		<h3>No image found!</h3>
+	{% endif %}
+	
+	<h3>{{title}} <small>{% if instance.draft %}<span style="color:red;">Draft</span> {% endif %}{{instance.publish}}</small></h3>
+	 
+
+	{% if instance.user.get_full_name %}
+		<p>Author: {{instance.user.get_full_name}}</p>
+	{% endif %}
+	<hr />
+
+	<div class="fb-like" data-href="{{request.build_absolute_uri }}" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+	
+
+	{{share_string}}
+<p>
+<!--  
+	<a href="https://facebook.com/sharer/sharer.php?u=http://{{request.build_absolute_uri }}">Facebook</a>
+
+	<a href="https://twitter.com/sharer/sharer.php?u=http://{{request.build_absolute_uri }}">Twitter</a>
+
+	<a href="https://plus.google.com/share?url=http://{{request.build_absolute_uri }}">Google+</a>
+
+	<a href="https://linkedin.com/sharer/sharer.php?u=http://CodingForEntrpreneurs.com">Linkedin</a>
+
+	<a href="https://reddit.com/sharer/sharer.php?u=http://{{request.build_absolute_uri }}">Reddit</a>
+
+</p>
+-->
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+		{{instance.content|linebreaks}}<!--  |linebreaks template filter for line break -->
+	</div>
+<hr />
+<br />
+	<div class="fb-comments" data-href="{{request.build_absolute_uri }}" data-numposts="5" data-width=""></div>
+	</div>
+	
+{% endblock %} 
